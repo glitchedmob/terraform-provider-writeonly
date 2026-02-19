@@ -11,13 +11,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func TestWoDataResourceImplementsResource(t *testing.T) {
-	var _ resource.Resource = &WoDataResource{}
-	var _ resource.ResourceWithImportState = &WoDataResource{}
+func TestWriteonlyDataResourceImplementsResource(t *testing.T) {
+	var _ resource.Resource = &WriteonlyDataResource{}
+	var _ resource.ResourceWithImportState = &WriteonlyDataResource{}
 }
 
-func TestWoDataResourceModel(t *testing.T) {
-	model := WoDataResourceModel{
+func TestWriteonlyDataResourceModel(t *testing.T) {
+	model := WriteonlyDataResourceModel{
 		Id:             types.StringValue("test-id"),
 		InputWo:        types.StringValue("test-input"),
 		InputWoVersion: types.NumberValue(big.NewFloat(1)),
@@ -29,8 +29,8 @@ func TestWoDataResourceModel(t *testing.T) {
 	}
 }
 
-func TestWoDataResourceModelNull(t *testing.T) {
-	model := WoDataResourceModel{
+func TestWriteonlyDataResourceModelNull(t *testing.T) {
+	model := WriteonlyDataResourceModel{
 		Id:             types.StringValue("test-id"),
 		InputWo:        types.StringNull(),
 		InputWoVersion: types.NumberNull(),
@@ -50,12 +50,12 @@ func TestGenerateRandomID(t *testing.T) {
 		t.Error("generated IDs should be unique")
 	}
 
-	if len(id1) != 24 {
-		t.Errorf("expected id length 24, got %d", len(id1))
+	if len(id1) != 31 {
+		t.Errorf("expected id length 31, got %d", len(id1))
 	}
 
-	expectedPrefix := "wo_data_"
-	if id1[:8] != expectedPrefix {
-		t.Errorf("expected id to start with %s, got %s", expectedPrefix, id1[:8])
+	expectedPrefix := "writeonly_data_"
+	if id1[:15] != expectedPrefix {
+		t.Errorf("expected id to start with %s, got %s", expectedPrefix, id1[:15])
 	}
 }

@@ -16,16 +16,16 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
-var _ resource.Resource = &WoDataResource{}
-var _ resource.ResourceWithImportState = &WoDataResource{}
+var _ resource.Resource = &WriteonlyDataResource{}
+var _ resource.ResourceWithImportState = &WriteonlyDataResource{}
 
-func NewWoDataResource() resource.Resource {
-	return &WoDataResource{}
+func NewWriteonlyDataResource() resource.Resource {
+	return &WriteonlyDataResource{}
 }
 
-type WoDataResource struct{}
+type WriteonlyDataResource struct{}
 
-type WoDataResourceModel struct {
+type WriteonlyDataResourceModel struct {
 	Id              types.String `tfsdk:"id"`
 	InputWo         types.String `tfsdk:"input_wo"`
 	InputWoVersion  types.Number `tfsdk:"input_wo_version"`
@@ -33,11 +33,11 @@ type WoDataResourceModel struct {
 	Output          types.String `tfsdk:"output"`
 }
 
-func (r *WoDataResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_wo_data"
+func (r *WriteonlyDataResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	resp.TypeName = "writeonly_data"
 }
 
-func (r *WoDataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *WriteonlyDataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "A resource that mimics terraform_data with write-only input support.",
 
@@ -71,11 +71,11 @@ func (r *WoDataResource) Schema(ctx context.Context, req resource.SchemaRequest,
 	}
 }
 
-func (r *WoDataResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+func (r *WriteonlyDataResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 }
 
-func (r *WoDataResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data WoDataResourceModel
+func (r *WriteonlyDataResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data WriteonlyDataResourceModel
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -94,8 +94,8 @@ func (r *WoDataResource) Create(ctx context.Context, req resource.CreateRequest,
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (r *WoDataResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data WoDataResourceModel
+func (r *WriteonlyDataResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data WriteonlyDataResourceModel
 
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
@@ -106,8 +106,8 @@ func (r *WoDataResource) Read(ctx context.Context, req resource.ReadRequest, res
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (r *WoDataResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data WoDataResourceModel
+func (r *WriteonlyDataResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data WriteonlyDataResourceModel
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -122,8 +122,8 @@ func (r *WoDataResource) Update(ctx context.Context, req resource.UpdateRequest,
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (r *WoDataResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var data WoDataResourceModel
+func (r *WriteonlyDataResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data WriteonlyDataResourceModel
 
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
@@ -132,7 +132,7 @@ func (r *WoDataResource) Delete(ctx context.Context, req resource.DeleteRequest,
 	}
 }
 
-func (r *WoDataResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+func (r *WriteonlyDataResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
@@ -142,5 +142,5 @@ func generateRandomID() string {
 	for i := range b {
 		b[i] = charset[rand.Intn(len(charset))]
 	}
-	return "wo_data_" + string(b)
+	return "writeonly_data_" + string(b)
 }

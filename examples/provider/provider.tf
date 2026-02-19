@@ -1,1 +1,1 @@
-provider "wodata" {}
+provider "writeonly" {}

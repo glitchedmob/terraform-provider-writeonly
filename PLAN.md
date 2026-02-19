@@ -1,4 +1,4 @@
-# WODATA Plan
+# Writeonly Provider Plan
 
 ## Goal
 
@@ -8,16 +8,18 @@ This enables capturing ephemeral values (like public keys from ephemeral `tls_pr
 
 ## Provider Name
 
-**wodata**
+**writeonly**
 
 ## Resource Name
 
-**wo_data**
+**writeonly_data**
 
 ## API
 
 ```hcl
-resource "wodata_wo_data" "example" {
+provider "writeonly" {}
+
+resource "writeonly_data" "example" {
   # Write-only input - accepts ephemeral values
   input_wo         = ephemeral.tls_private_key.ssh.public_key_openssh
   input_wo_version = 1
@@ -28,7 +30,7 @@ resource "wodata_wo_data" "example" {
 
 # Output - readable from state
 output "public_key" {
-  value = wodata_wo_data.example.output
+  value = writeonly_data.example.output
 }
 ```
 
