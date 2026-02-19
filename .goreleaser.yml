@@ -31,7 +31,7 @@ builds:
       goarch: '386'
     - goos: windows
       goarch: arm
-  binary: 'terraform-provider-wodata_v{{ .Version }}'
+  binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
 - formats:
   - zip

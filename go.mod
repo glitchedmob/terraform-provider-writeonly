@@ -1,4 +1,4 @@
-module github.com/glitchmob/wodata
+module github.com/glitchmob/terraform-provider-wodata
 
 go 1.25.5
 

@@ -8,7 +8,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/glitchmob/wodata/internal/provider"
+	"github.com/glitchmob/terraform-provider-wodata/internal/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
