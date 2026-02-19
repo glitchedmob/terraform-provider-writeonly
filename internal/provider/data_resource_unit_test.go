@@ -11,13 +11,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func TestWriteonlyDataResourceImplementsResource(t *testing.T) {
-	var _ resource.Resource = &WriteonlyDataResource{}
-	var _ resource.ResourceWithImportState = &WriteonlyDataResource{}
+func TestDataResourceImplementsResource(t *testing.T) {
+	var _ resource.Resource = &DataResource{}
+	var _ resource.ResourceWithImportState = &DataResource{}
 }
 
-func TestWriteonlyDataResourceModel(t *testing.T) {
-	model := WriteonlyDataResourceModel{
+func TestDataResourceModel(t *testing.T) {
+	model := DataResourceModel{
 		Id:             types.StringValue("test-id"),
 		InputWo:        types.StringValue("test-input"),
 		InputWoVersion: types.NumberValue(big.NewFloat(1)),
@@ -29,8 +29,8 @@ func TestWriteonlyDataResourceModel(t *testing.T) {
 	}
 }
 
-func TestWriteonlyDataResourceModelNull(t *testing.T) {
-	model := WriteonlyDataResourceModel{
+func TestDataResourceModelNull(t *testing.T) {
+	model := DataResourceModel{
 		Id:             types.StringValue("test-id"),
 		InputWo:        types.StringNull(),
 		InputWoVersion: types.NumberNull(),

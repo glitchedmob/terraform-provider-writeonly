@@ -9,13 +9,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 )
 
-func TestAccWriteonlyDataResource(t *testing.T) {
+func TestAccDataResource(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccWriteonlyDataResourceConfig("test-value"),
+				Config: testAccDataResourceConfig("test-value"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttr("writeonly_data.test", "input_wo", "test-value"),
 					resource.TestCheckResourceAttr("writeonly_data.test", "output", "test-value"),
@@ -32,7 +32,7 @@ func TestAccWriteonlyDataResource(t *testing.T) {
 	})
 }
 
-func testAccWriteonlyDataResourceConfig(value string) string {
+func testAccDataResourceConfig(value string) string {
 	return `
 resource "writeonly_data" "test" {
   input_wo = "` + value + `"

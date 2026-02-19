@@ -37,7 +37,7 @@ func (p *WriteonlyProvider) Configure(ctx context.Context, req provider.Configur
 
 func (p *WriteonlyProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewWriteonlyDataResource,
+		NewDataResource,
 	}
 }
 

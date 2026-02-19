@@ -16,16 +16,16 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
-var _ resource.Resource = &WriteonlyDataResource{}
-var _ resource.ResourceWithImportState = &WriteonlyDataResource{}
+var _ resource.Resource = &DataResource{}
+var _ resource.ResourceWithImportState = &DataResource{}
 
-func NewWriteonlyDataResource() resource.Resource {
-	return &WriteonlyDataResource{}
+func NewDataResource() resource.Resource {
+	return &DataResource{}
 }
 
-type WriteonlyDataResource struct{}
+type DataResource struct{}
 
-type WriteonlyDataResourceModel struct {
+type DataResourceModel struct {
 	Id              types.String `tfsdk:"id"`
 	InputWo         types.String `tfsdk:"input_wo"`
 	InputWoVersion  types.Number `tfsdk:"input_wo_version"`
@@ -33,11 +33,11 @@ type WriteonlyDataResourceModel struct {
 	Output          types.String `tfsdk:"output"`
 }
 
-func (r *WriteonlyDataResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+func (r *DataResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_data"
 }
 
-func (r *WriteonlyDataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *DataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "A resource that mimics terraform_data with write-only input support.",
 
@@ -71,11 +71,11 @@ func (r *WriteonlyDataResource) Schema(ctx context.Context, req resource.SchemaR
 	}
 }
 
-func (r *WriteonlyDataResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+func (r *DataResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 }
 
-func (r *WriteonlyDataResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data WriteonlyDataResourceModel
+func (r *DataResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data DataResourceModel
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -94,8 +94,8 @@ func (r *WriteonlyDataResource) Create(ctx context.Context, req resource.CreateR
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (r *WriteonlyDataResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data WriteonlyDataResourceModel
+func (r *DataResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data DataResourceModel
 
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
@@ -106,8 +106,8 @@ func (r *WriteonlyDataResource) Read(ctx context.Context, req resource.ReadReque
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (r *WriteonlyDataResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data WriteonlyDataResourceModel
+func (r *DataResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data DataResourceModel
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
@@ -122,8 +122,8 @@ func (r *WriteonlyDataResource) Update(ctx context.Context, req resource.UpdateR
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
-func (r *WriteonlyDataResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var data WriteonlyDataResourceModel
+func (r *DataResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data DataResourceModel
 
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
@@ -132,7 +132,7 @@ func (r *WriteonlyDataResource) Delete(ctx context.Context, req resource.DeleteR
 	}
 }
 
-func (r *WriteonlyDataResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+func (r *DataResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
