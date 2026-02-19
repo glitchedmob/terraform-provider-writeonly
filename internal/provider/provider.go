@@ -24,7 +24,7 @@ type WriteonlyProvider struct {
 }
 
 func (p *WriteonlyProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "wodata"
+	resp.TypeName = "writeonly"
 	resp.Version = p.version
 }
 
