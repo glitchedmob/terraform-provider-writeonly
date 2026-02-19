@@ -5,7 +5,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/glitchmob/terraform-provider-writeonly/internal/provider"
+	"github.com/glitchedmob/terraform-provider-writeonly/internal/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/glitchmob/writeonly",
+		Address: "registry.terraform.io/glitchedmob/writeonly",
 		Debug:   debug,
 	}
 

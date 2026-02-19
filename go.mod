@@ -1,4 +1,4 @@
-module github.com/glitchmob/terraform-provider-writeonly
+module github.com/glitchedmob/terraform-provider-writeonly
 
 go 1.25.5
 
