@@ -35,33 +35,39 @@ func (r *DataResource) Metadata(ctx context.Context, req resource.MetadataReques
 
 func (r *DataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		MarkdownDescription: "A resource that mimics terraform_data with write-only input support.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Computed: true,
+				MarkdownDescription: "Unique identifier.",
+				Computed:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"input_wo": schema.StringAttribute{
-				Optional:  true,
-				WriteOnly: true,
+				MarkdownDescription: "Write-only input that accepts ephemeral values. The value is stored in `output`.",
+				Optional:            true,
+				WriteOnly:           true,
 			},
 			"input_wo_version": schema.Int64Attribute{
-				Optional: true,
-				Computed: true,
+				MarkdownDescription: "When changed, triggers re-capture of the input_wo value.",
+				Optional:            true,
+				Computed:            true,
 				PlanModifiers: []planmodifier.Int64{
 					int64planmodifier.UseStateForUnknown(),
 				},
 			},
 			"triggers_replace": schema.ListAttribute{
-				ElementType: types.StringType,
-				Optional:    true,
+				MarkdownDescription: "Forces replacement when value changes.",
+				ElementType:         types.StringType,
+				Optional:            true,
 				PlanModifiers: []planmodifier.List{
 					listplanmodifier.RequiresReplace(),
 				},
 			},
 			"output": schema.StringAttribute{
-				Computed: true,
+				MarkdownDescription: "The captured value from input_wo.",
+				Computed:            true,
 			},
 		},
 	}

@@ -26,13 +26,15 @@ resource "writeonly_data" "example" {
 
 ### Optional
 
-- `input_wo` (String, Sensitive) Write-only input that accepts ephemeral values. The value is stored in `output`.
+> **NOTE**: [Write-only arguments](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments) are supported in Terraform 1.11 and later.
+
+- `input_wo` (String, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Write-only input that accepts ephemeral values. The value is stored in `output`.
 - `input_wo_version` (Number) When changed, triggers re-capture of the input_wo value.
 - `triggers_replace` (List of String) Forces replacement when value changes.
 
 ### Read-Only
 
-- `id` (String) Unique identifier
+- `id` (String) Unique identifier.
 - `output` (String) The captured value from input_wo.
 
 ## Import
