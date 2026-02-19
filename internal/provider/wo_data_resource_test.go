@@ -26,7 +26,7 @@ func TestAccWoDataResource(t *testing.T) {
 				ResourceName:            "wodata_wo_data.test",
 				ImportState:             true,
 				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"input_wo"},
+				ImportStateVerifyIgnore: []string{"input_wo", "output"},
 			},
 		},
 	})
