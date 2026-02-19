@@ -52,29 +52,40 @@ jobs:
           git diff --compact-summary --exit-code || \
             (echo; echo "Unexpected difference in directories after code generation. Run 'make generate' command and commit."; exit 1)
 
-  # Run acceptance tests in a matrix with Terraform CLI versions
+  # Run acceptance tests in a matrix with Terraform and OpenTofu CLI versions
   test:
-    name: 'Acceptance Tests: Terraform ${{ matrix.terraform }}'
+    name: 'Acceptance Tests: ${{ matrix.tool }} ${{ matrix.version }}'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        # Terraform versions
-        terraform:
-          - '1.13.*'
-          - '1.14.*'
+        include:
+          - tool: terraform
+            version: '1.13.*'
+          - tool: terraform
+            version: '1.14.*'
+          - tool: tofu
+            version: '1.10'
+          - tool: tofu
+            version: '1.11'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
         with:
           go-version-file: 'go.mod'
           cache: true
-      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+      - if: matrix.tool == 'terraform'
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
         with:
-          terraform_version: ${{ matrix.terraform }}
+          terraform_version: ${{ matrix.version }}
           terraform_wrapper: false
+      - if: matrix.tool == 'tofu'
+        uses: opentofu/setup-opentofu@9d84900f3238fab8cd84ce47d658d25dd008be2f # v1.0.8
+        with:
+          tofu_version: ${{ matrix.version }}
+          tofu_wrapper: false
       - run: go mod download
       - env:
           TF_ACC: "1"
