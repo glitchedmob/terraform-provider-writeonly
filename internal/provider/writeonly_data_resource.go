@@ -34,7 +34,7 @@ type WriteonlyDataResourceModel struct {
 }
 
 func (r *WriteonlyDataResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = "writeonly_data"
+	resp.TypeName = req.ProviderTypeName + "_data"
 }
 
 func (r *WriteonlyDataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
